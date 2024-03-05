@@ -32,3 +32,42 @@ app.post('/', (req,res)=>{
     });
 }
 )
+
+let dataGamesPage = 'fields name,rating; where rating_count > 200; ' +
+                    'sort rating desc; limit 10;';
+app.post('/Games', (req,res)=>{  
+    const options = {
+        method: 'POST',
+        url: 'https://q00gj5u12b.execute-api.us-west-2.amazonaws.com/production/v4/games',
+        headers: {
+            'x-api-key':process.env.REACT_APP_API_KEY,
+        },
+        data: dataGamesPage
+   };
+   
+    axios.request(options).then(function (response) {
+        res.json(response.data);
+    }).catch(function (error) {
+        console.error(error);
+    });
+}
+)
+
+let image = 'fields *; where id = 119133;';
+app.post('/Artworks', (req,res)=>{  
+    const options = {
+        method: 'POST',
+        url: 'https://q00gj5u12b.execute-api.us-west-2.amazonaws.com/production/v4/artworks',
+        headers: {
+            'x-api-key':process.env.REACT_APP_API_KEY,
+        },
+        data: image
+   };
+   
+    axios.request(options).then(function (response) {
+        res.json(response.data);
+    }).catch(function (error) {
+        console.error(error);
+    });
+}
+)
